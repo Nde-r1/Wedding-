@@ -1,0 +1,2538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Wedding Gift Registry</title>
+
+  <style>
+    :root {
+      --primary: #7a3e48;
+      --secondary: #d8b89c;
+      --background: #fffaf6;
+      --surface: #ffffff;
+      --text: #2f2929;
+      --muted: #756b6b;
+      --success: #3f7a58;
+      --border: #eaded5;
+      --shadow: 0 12px 35px rgba(72, 46, 46, 0.10);
+      --radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: var(--background);
+      line-height: 1.6;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1120px, 92%);
+      margin: 0 auto;
+    }
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255, 250, 246, 0.95);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(10px);
+    }
+
+    .nav-inner {
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      font-weight: 800;
+      color: var(--primary);
+      font-size: 1.08rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .hero {
+      min-height: 82vh;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 80px 0;
+      background:
+        linear-gradient(rgba(65, 31, 36, 0.52), rgba(65, 31, 36, 0.52)),
+        url("https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1800&q=85")
+        center/cover no-repeat;
+      color: white;
+    }
+
+    .hero-content {
+      max-width: 760px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.16);
+      border: 1px solid rgba(255,255,255,0.35);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .hero h1 {
+      margin: 18px 0 8px;
+      font-size: clamp(2.5rem, 7vw, 5.6rem);
+      line-height: 1;
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    .hero p {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      max-width: 650px;
+      margin: 20px auto 28px;
+    }
+
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 28px 0;
+    }
+
+    .countdown div {
+      min-width: 86px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.14);
+      border: 1px solid rgba(255,255,255,0.28);
+    }
+
+    .countdown strong {
+      display: block;
+      font-size: 1.45rem;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 999px;
+      padding: 12px 20px;
+      font-weight: 700;
+      transition: 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      color: white;
+      background: var(--primary);
+    }
+
+    .btn-light {
+      color: var(--primary);
+      background: white;
+    }
+
+    .btn-outline {
+      color: var(--primary);
+      background: transparent;
+      border: 1px solid var(--primary);
+    }
+
+    .btn-small {
+      padding: 9px 14px;
+      font-size: 0.88rem;
+    }
+
+    section {
+      padding: 76px 0;
+    }
+
+    .section-heading {
+      text-align: center;
+      margin-bottom: 34px;
+    }
+
+    .section-heading h2 {
+      margin: 0 0 10px;
+      font-family: Georgia, "Times New Roman", serif;
+      color: var(--primary);
+      font-size: clamp(2rem, 4vw, 3rem);
+    }
+
+    .section-heading p {
+      margin: 0 auto;
+      max-width: 660px;
+      color: var(--muted);
+    }
+
+    .story-card,
+    .cash-card,
+    .admin-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 30px;
+      box-shadow: var(--shadow);
+    }
+
+    .story-card {
+      max-width: 850px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .filters {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 26px;
+    }
+
+    .field,
+    select,
+    textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      background: white;
+      border-radius: 12px;
+      padding: 12px 14px;
+      outline: none;
+    }
+
+    .field:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(122, 62, 72, 0.12);
+    }
+
+
+    .category-overview {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .category-overview button {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: var(--surface);
+      padding: 20px;
+      text-align: left;
+      box-shadow: var(--shadow);
+      transition: 0.2s ease;
+      color: var(--text);
+    }
+
+    .category-overview button:hover {
+      transform: translateY(-3px);
+      border-color: var(--primary);
+    }
+
+    .category-overview strong {
+      display: block;
+      color: var(--primary);
+      margin-bottom: 5px;
+      font-size: 1rem;
+    }
+
+    .category-overview span {
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+
+    .price-reference-note {
+      margin: 0 0 22px;
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--primary);
+      border-radius: 12px;
+      background: #fff;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .price-basis {
+      display: block;
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 0.72rem;
+    }
+
+
+    .gift-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .gift-card {
+      overflow: hidden;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .gift-card img {
+      width: 100%;
+      height: 210px;
+      object-fit: cover;
+      background: #f4ece7;
+    }
+
+    .gift-body {
+      padding: 20px;
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+    }
+
+    .gift-topline {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .gift-card h3 {
+      margin: 0;
+      font-size: 1.16rem;
+    }
+
+    .category {
+      display: inline-block;
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    .status {
+      white-space: nowrap;
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      background: #f5e7e9;
+      color: var(--primary);
+    }
+
+    .status.complete {
+      background: #e5f2e9;
+      color: var(--success);
+    }
+
+    .gift-description {
+      color: var(--muted);
+      font-size: 0.93rem;
+      min-height: 48px;
+    }
+
+    .price-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      margin: 10px 0 8px;
+      font-size: 0.92rem;
+    }
+
+    .price-row strong {
+      color: var(--primary);
+      font-size: 1.05rem;
+    }
+
+    .progress {
+      height: 10px;
+      border-radius: 999px;
+      background: #efe6df;
+      overflow: hidden;
+      margin-bottom: 7px;
+    }
+
+    .progress span {
+      display: block;
+      height: 100%;
+      width: 0;
+      background: var(--success);
+      border-radius: inherit;
+    }
+
+    .progress-text {
+      color: var(--muted);
+      font-size: 0.8rem;
+      margin-bottom: 16px;
+    }
+
+    .gift-actions {
+      margin-top: auto;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .cash-card {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .cash-card h3 {
+      margin-top: 0;
+      color: var(--primary);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 2rem;
+    }
+
+    .payment-note {
+      padding: 12px 14px;
+      border-left: 4px solid var(--secondary);
+      background: #fff4eb;
+      color: #685b54;
+      border-radius: 8px;
+      font-size: 0.9rem;
+    }
+
+
+    .section-kicker {
+      display: inline-block;
+      margin-bottom: 8px;
+      color: var(--secondary);
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-size: 0.74rem;
+    }
+
+    .journey-card {
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at top right, rgba(216, 184, 156, 0.28), transparent 34%),
+        var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 34px;
+      box-shadow: var(--shadow);
+    }
+
+    .journey-card::before {
+      content: "V & G";
+      position: absolute;
+      right: 24px;
+      bottom: -28px;
+      color: rgba(122, 62, 72, 0.045);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(5rem, 13vw, 9rem);
+      font-weight: 700;
+      pointer-events: none;
+    }
+
+    .summary-box {
+      position: relative;
+      z-index: 1;
+      min-height: 132px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 20px;
+      background: rgba(255, 250, 246, 0.88);
+    }
+
+    .summary-box span {
+      color: var(--muted);
+      font-size: 0.84rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .summary-box strong {
+      display: block;
+      margin: 5px 0 3px;
+      color: var(--primary);
+      font-size: clamp(1.25rem, 3vw, 1.65rem);
+    }
+
+    .summary-box small {
+      color: var(--muted);
+      font-size: 0.78rem;
+    }
+
+    .overall-progress {
+      position: relative;
+      z-index: 1;
+      margin-top: 26px;
+      padding: 24px;
+      border-radius: 20px;
+      color: white;
+      background: linear-gradient(135deg, #6e3540, var(--primary));
+    }
+
+    .overall-progress-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 16px;
+    }
+
+    .overall-progress-heading span {
+      display: block;
+      color: rgba(255, 255, 255, 0.78);
+      font-size: 0.84rem;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+    }
+
+    .overall-progress-heading strong {
+      display: block;
+      margin-top: 2px;
+      font-size: 1.4rem;
+    }
+
+    .heart-mark {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 3.2rem !important;
+      line-height: 1;
+      color: rgba(255, 255, 255, 0.8) !important;
+    }
+
+    .journey-progress-track {
+      height: 14px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.18);
+    }
+
+    .journey-progress-track span {
+      display: block;
+      width: 0;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #f3d5bd, #ffffff);
+      transition: width 0.45s ease;
+    }
+
+    .overall-progress p {
+      margin: 12px 0 0;
+      color: rgba(255, 255, 255, 0.84);
+      font-size: 0.9rem;
+    }
+
+    .thank-you-ribbon {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-top: 22px;
+      padding: 16px 18px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    .thank-you-ribbon span {
+      font-family: Georgia, "Times New Roman", serif;
+      font-style: italic;
+    }
+
+    .thank-you-ribbon strong {
+      color: var(--primary);
+      text-align: right;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .empty-state {
+      grid-column: 1 / -1;
+      text-align: center;
+      color: var(--muted);
+      padding: 40px 20px;
+      background: white;
+      border-radius: 16px;
+      border: 1px dashed var(--border);
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      background: #321f22;
+      color: #f7ece6;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      place-items: center;
+      background: rgba(32, 20, 22, 0.72);
+      padding: 20px;
+      z-index: 100;
+    }
+
+    .modal.open {
+      display: grid;
+    }
+
+    .modal-box {
+      width: min(560px, 100%);
+      max-height: 90vh;
+      overflow-y: auto;
+      background: white;
+      border-radius: 20px;
+      padding: 26px;
+      box-shadow: 0 25px 80px rgba(0,0,0,0.28);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .modal-header h3 {
+      margin: 0;
+      color: var(--primary);
+    }
+
+    .close-button {
+      border: 0;
+      background: #f3e8e2;
+      color: var(--primary);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      font-weight: 900;
+    }
+
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    .checkbox-row {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin: 12px 0;
+    }
+
+    .toast {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 200;
+      max-width: 340px;
+      padding: 14px 18px;
+      border-radius: 12px;
+      background: #2d5039;
+      color: white;
+      box-shadow: var(--shadow);
+      display: none;
+    }
+
+    .toast.show {
+      display: block;
+    }
+
+
+    .small-note {
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    @media (max-width: 900px) {
+      .gift-grid,
+      .category-overview {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .cash-card,
+      .filters {
+        grid-template-columns: 1fr;
+      }
+
+      .summary-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 620px) {
+      .nav-links {
+        display: none;
+      }
+
+      .gift-grid,
+      .summary-grid,
+      .category-overview {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        min-height: 74vh;
+      }
+
+      .gift-actions .btn {
+        width: 100%;
+      }
+
+      .journey-card {
+        padding: 22px;
+      }
+
+      .thank-you-ribbon {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .thank-you-ribbon strong {
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="container nav-inner">
+      <a class="brand" href="#home" id="navCoupleName">Our Wedding</a>
+      <div class="nav-links">
+        <a href="#story">Our Story</a>
+        <a href="#categories">Categories</a>
+        <a href="#registry">Gift Registry</a>
+        <a href="#cash-gift">Cash Gift</a>
+        <a href="#progress">Gift Progress</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero" id="home">
+    <div class="container hero-content">
+      <span class="eyebrow">We are getting married</span>
+      <h1 id="heroCoupleName">Vinceent & Grace</h1>
+      <p id="heroMessage">
+        Your presence is our greatest gift. For those who wish to bless our new beginning,
+        we have prepared this simple wedding gift registry.
+      </p>
+
+      <div class="countdown" aria-label="Wedding countdown">
+        <div><strong id="days">0</strong><span>Days</span></div>
+        <div><strong id="hours">0</strong><span>Hours</span></div>
+        <div><strong id="minutes">0</strong><span>Minutes</span></div>
+        <div><strong id="seconds">0</strong><span>Seconds</span></div>
+      </div>
+
+      <a href="#registry" class="btn btn-light">View Our Wishlist</a>
+    </div>
+  </header>
+
+  <main>
+    <section id="story">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Our Story</h2>
+          <p>A few words about the journey that brought us here.</p>
+        </div>
+
+        <div class="story-card">
+          <p id="storyText">
+            We are grateful for the love, prayers and support that have carried us to this
+            beautiful moment. As we begin our life together, every gift and kind message will
+            help us create a warm and joyful home.
+          </p>
+          <p><strong id="weddingDetails">Saturday, 12 December 2026 • Nairobi, Kenya</strong></p>
+        </div>
+      </div>
+    </section>
+
+
+    <section id="categories">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Browse Gift Categories</h2>
+          <p>Choose a category to quickly view the gifts available in that section.</p>
+        </div>
+        <div class="category-overview" id="categoryOverview"></div>
+      </div>
+    </section>
+
+    <section id="registry">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Wedding Gift Registry</h2>
+          <p>Select a full gift, contribute toward a larger item, or reserve an item to deliver later.</p>
+        </div>
+
+
+        <div class="price-reference-note">
+          <strong>Pricing reference:</strong> Retail-item prices were aligned to sampled Carrefour Kenya listings checked on 3 August 2026. Prices can change with stock, branch and promotions. Services, funds and furniture not consistently listed by Carrefour remain editable estimates.
+        </div>
+
+        <div class="filters">
+          <input class="field" id="searchInput" type="search" placeholder="Search gifts..." />
+          <select id="categoryFilter">
+            <option value="all">All categories</option>
+          </select>
+          <select id="statusFilter">
+            <option value="all">All statuses</option>
+            <option value="available">Available</option>
+            <option value="partial">Partly funded</option>
+            <option value="complete">Fully funded</option>
+          </select>
+        </div>
+
+        <div class="gift-grid" id="giftGrid"></div>
+      </div>
+    </section>
+
+    <section id="cash-gift">
+      <div class="container">
+        <div class="cash-card">
+          <div>
+            <h3>Send a General Cash Gift</h3>
+            <p>
+              Guests who prefer not to select an item can make a general contribution toward
+              our new home, honeymoon or future plans.
+            </p>
+            <div class="payment-note" id="paymentDetails">
+              M-Pesa Till/Paybill: Add your details here.<br />
+              Account Name: Add the couple's name.
+            </div>
+          </div>
+
+          <form id="cashGiftForm">
+            <div class="form-group">
+              <label for="cashGuestName">Your name</label>
+              <input class="field" id="cashGuestName" required />
+            </div>
+
+            <div class="form-group">
+              <label for="cashAmount">Amount (KSh)</label>
+              <input class="field" id="cashAmount" type="number" min="1" required />
+            </div>
+
+            <div class="form-group">
+              <label for="cashPurpose">Gift purpose</label>
+              <select id="cashPurpose">
+                <option>General wedding gift</option>
+                <option>New home fund</option>
+                <option>Honeymoon fund</option>
+                <option>Charity contribution</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="cashMessage">Message to the couple</label>
+              <textarea id="cashMessage" rows="3" placeholder="Congratulations..."></textarea>
+            </div>
+
+            <label class="checkbox-row">
+              <input id="cashAnonymous" type="checkbox" />
+              Display this gift as anonymous
+            </label>
+
+            <button class="btn btn-primary" type="submit">Record Cash Gift</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section id="progress">
+      <div class="container">
+        <div class="section-heading">
+          <span class="section-kicker">A new beginning</span>
+          <h2>Our Gift Journey</h2>
+          <p>
+            Every contribution brings us one step closer to building a warm and beautiful
+            home together. Thank you for being part of our story.
+          </p>
+        </div>
+
+        <div class="journey-card">
+          <div class="summary-grid">
+            <div class="summary-box">
+              <span>Wishlist Items</span>
+              <strong id="summaryGiftCount">0</strong>
+              <small>Thoughtfully selected gifts</small>
+            </div>
+
+            <div class="summary-box">
+              <span>Registry Value</span>
+              <strong id="summaryRegistryValue">KSh 0</strong>
+              <small>Total value of our wishlist</small>
+            </div>
+
+            <div class="summary-box">
+              <span>Gift Contributions</span>
+              <strong id="summaryPledged">KSh 0</strong>
+              <small>Kindly pledged by our guests</small>
+            </div>
+
+            <div class="summary-box">
+              <span>Completed Wishes</span>
+              <strong id="summaryCompleted">0</strong>
+              <small>Fully gifted items</small>
+            </div>
+          </div>
+
+          <div class="overall-progress">
+            <div class="overall-progress-heading">
+              <div>
+                <span>Overall registry progress</span>
+                <strong id="overallProgressText">0% complete</strong>
+              </div>
+              <span class="heart-mark" aria-hidden="true">♡</span>
+            </div>
+
+            <div class="journey-progress-track" aria-label="Overall registry progress">
+              <span id="overallProgressBar"></span>
+            </div>
+
+            <p id="journeyMessage">
+              Our wishlist is ready for your thoughtful blessings.
+            </p>
+          </div>
+
+          <div class="thank-you-ribbon">
+            <span>With grateful hearts</span>
+            <strong>Thank you for celebrating with Vinceent &amp; Grace</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p id="footerText">With love, Vinceent & Grace • Thank you for celebrating with us.</p>
+  </footer>
+
+  <div class="modal" id="giftModal" role="dialog" aria-modal="true">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div>
+          <h3 id="modalTitle">Gift Item</h3>
+          <div class="small-note" id="modalRemaining"></div>
+        </div>
+        <button class="close-button" id="closeModal" aria-label="Close modal">×</button>
+      </div>
+
+      <form id="giftForm">
+        <input id="selectedGiftId" type="hidden" />
+        <input id="giftAction" type="hidden" value="contribute" />
+
+        <div class="form-group">
+          <label for="guestName">Your name</label>
+          <input class="field" id="guestName" required />
+        </div>
+
+        <div class="form-group" id="amountGroup">
+          <label for="giftAmount">Contribution amount (KSh)</label>
+          <input class="field" id="giftAmount" type="number" min="1" required />
+        </div>
+
+        <div class="form-group">
+          <label for="guestMessage">Message to the couple</label>
+          <textarea id="guestMessage" rows="3" placeholder="Wishing you a happy marriage..."></textarea>
+        </div>
+
+        <label class="checkbox-row">
+          <input id="giftAnonymous" type="checkbox" />
+          Display this contribution as anonymous
+        </label>
+
+        <button class="btn btn-primary" id="submitGiftButton" type="submit">Save Contribution</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    /*
+      ============================================================
+      EDIT THIS SECTION FIRST
+      ============================================================
+    */
+
+    const SITE_CONFIG = {
+      coupleName: "Vinceent & Grace",
+      weddingDate: "2026-12-12T10:00:00",
+      weddingDetails: "Saturday, 12 December 2026 • Nairobi, Kenya",
+      heroMessage:
+        "Your presence is our greatest gift. For those who wish to bless our new beginning, we have prepared this simple wedding gift registry.",
+      story:
+        "We are grateful for the love, prayers and support that have carried us to this beautiful moment. As we begin our life together, every gift and kind message will help us create a warm and joyful home.",
+      paymentDetails:
+        "M-Pesa Paybill: 000000<br>Account Number: WEDDING<br>Account Name: Vinceent & Grace",
+      currency: "KSh"
+    };
+
+    /*
+      To add a gift, copy one object and change its details.
+      Images and prices can be changed in the dashboard, or edited directly below.
+    */
+    /*
+      ============================================================
+      HOW TO CHANGE GIFT PICTURES OR PRICES
+      ============================================================
+      1. Upload your pictures into an "images" folder beside this HTML file.
+      2. Replace an item's image value, for example:
+         image: "images/refrigerator.jpg"
+      3. Change the price number directly in the gift item.
+      4. Keep every gift ID unique.
+      ============================================================
+    */
+
+    const BASE_GIFTS = [
+          {
+                "id": 1,
+                "name": "Refrigerator",
+                "category": "Kitchen Essentials",
+                "price": 59995,
+                "description": "Contribute toward our refrigerator as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Carrefour Kenya reference • 3 Aug 2026"
+          },
+          {
+                "id": 2,
+                "name": "Microwave Oven",
+                "category": "Kitchen Essentials",
+                "price": 13995,
+                "description": "Contribute toward our microwave oven as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Carrefour Kenya reference • 3 Aug 2026"
+          },
+          {
+                "id": 3,
+                "name": "Cooker",
+                "category": "Kitchen Essentials",
+                "price": 39995,
+                "description": "Contribute toward our cooker as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Carrefour Kenya reference • 3 Aug 2026"
+          },
+          {
+                "id": 4,
+                "name": "Air Fryer",
+                "category": "Kitchen Essentials",
+                "price": 12290,
+                "description": "Contribute toward our air fryer as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Carrefour Kenya reference • 3 Aug 2026"
+          },
+          {
+                "id": 5,
+                "name": "Blender",
+                "category": "Kitchen Essentials",
+                "price": 3969,
+                "description": "Contribute toward our blender as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Carrefour Kenya reference • 3 Aug 2026"
+          },
+          {
+                "id": 6,
+                "name": "Electric Kettle",
+                "category": "Kitchen Essentials",
+                "price": 2495,
+                "description": "Contribute toward our electric kettle as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Carrefour Kenya reference • 3 Aug 2026"
+          },
+          {
+                "id": 7,
+                "name": "Toaster",
+                "category": "Kitchen Essentials",
+                "price": 10995,
+                "description": "Contribute toward our toaster as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Carrefour Kenya reference • 3 Aug 2026"
+          },
+          {
+                "id": 8,
+                "name": "Rice Cooker",
+                "category": "Kitchen Essentials",
+                "price": 7280,
+                "description": "Contribute toward our rice cooker as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Carrefour Kenya reference • 3 Aug 2026"
+          },
+          {
+                "id": 9,
+                "name": "Coffee Maker",
+                "category": "Kitchen Essentials",
+                "price": 2920,
+                "description": "Contribute toward our coffee maker as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Carrefour Kenya reference • 3 Aug 2026"
+          },
+          {
+                "id": 10,
+                "name": "Water Dispenser",
+                "category": "Kitchen Essentials",
+                "price": 20995,
+                "description": "Contribute toward our water dispenser as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Carrefour Kenya reference • 3 Aug 2026"
+          },
+          {
+                "id": 11,
+                "name": "Dinner Plate Set",
+                "category": "Kitchen Essentials",
+                "price": 4495,
+                "description": "Contribute toward our dinner plate set as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Carrefour Kenya reference • 3 Aug 2026"
+          },
+          {
+                "id": 12,
+                "name": "Drinking Glasses",
+                "category": "Kitchen Essentials",
+                "price": 3500,
+                "description": "Contribute toward our drinking glasses as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Carrefour Kenya reference • 3 Aug 2026"
+          },
+          {
+                "id": 13,
+                "name": "Cutlery Set",
+                "category": "Kitchen Essentials",
+                "price": 3490,
+                "description": "Contribute toward our cutlery set as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Carrefour Kenya reference • 3 Aug 2026"
+          },
+          {
+                "id": 14,
+                "name": "Cooking Pots",
+                "category": "Kitchen Essentials",
+                "price": 14040,
+                "description": "Contribute toward our cooking pots as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Carrefour Kenya reference • 3 Aug 2026"
+          },
+          {
+                "id": 15,
+                "name": "Frying Pans",
+                "category": "Kitchen Essentials",
+                "price": 3890,
+                "description": "Contribute toward our frying pans as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Carrefour Kenya reference • 3 Aug 2026"
+          },
+          {
+                "id": 16,
+                "name": "Pressure Cooker",
+                "category": "Kitchen Essentials",
+                "price": 8695,
+                "description": "Contribute toward our pressure cooker as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Carrefour Kenya reference • 3 Aug 2026"
+          },
+          {
+                "id": 17,
+                "name": "Food Storage Containers",
+                "category": "Kitchen Essentials",
+                "price": 2405,
+                "description": "Contribute toward our food storage containers as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Carrefour Kenya reference • 3 Aug 2026"
+          },
+          {
+                "id": 18,
+                "name": "Dish Rack",
+                "category": "Kitchen Essentials",
+                "price": 2800,
+                "description": "Contribute toward our dish rack as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Carrefour Kenya reference • 3 Aug 2026"
+          },
+          {
+                "id": 19,
+                "name": "Kitchen Towels",
+                "category": "Kitchen Essentials",
+                "price": 1295,
+                "description": "Contribute toward our kitchen towels as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Carrefour Kenya reference • 3 Aug 2026"
+          },
+          {
+                "id": 20,
+                "name": "Bed",
+                "category": "Bedroom Essentials",
+                "price": 60000,
+                "description": "Contribute toward our bed as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable market estimate"
+          },
+          {
+                "id": 21,
+                "name": "Mattress",
+                "category": "Bedroom Essentials",
+                "price": 11270,
+                "description": "Contribute toward our mattress as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Carrefour Kenya reference • 3 Aug 2026"
+          },
+          {
+                "id": 22,
+                "name": "Bedsheets",
+                "category": "Bedroom Essentials",
+                "price": 1695,
+                "description": "Contribute toward our bedsheets as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Carrefour Kenya reference • 3 Aug 2026"
+          },
+          {
+                "id": 23,
+                "name": "Duvet",
+                "category": "Bedroom Essentials",
+                "price": 1850,
+                "description": "Contribute toward our duvet as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Carrefour Kenya reference • 3 Aug 2026"
+          },
+          {
+                "id": 24,
+                "name": "Pillows",
+                "category": "Bedroom Essentials",
+                "price": 7560,
+                "description": "Contribute toward our pillows as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Carrefour Kenya reference • 3 Aug 2026"
+          },
+          {
+                "id": 25,
+                "name": "Curtains",
+                "category": "Bedroom Essentials",
+                "price": 8000,
+                "description": "Contribute toward our curtains as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable market estimate"
+          },
+          {
+                "id": 26,
+                "name": "Bedside Tables",
+                "category": "Bedroom Essentials",
+                "price": 18000,
+                "description": "Contribute toward our bedside tables as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable market estimate"
+          },
+          {
+                "id": 27,
+                "name": "Wardrobe",
+                "category": "Bedroom Essentials",
+                "price": 45000,
+                "description": "Contribute toward our wardrobe as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable market estimate"
+          },
+          {
+                "id": 28,
+                "name": "Dressing Mirror",
+                "category": "Bedroom Essentials",
+                "price": 12000,
+                "description": "Contribute toward our dressing mirror as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable market estimate"
+          },
+          {
+                "id": 29,
+                "name": "Laundry Basket",
+                "category": "Bedroom Essentials",
+                "price": 850,
+                "description": "Contribute toward our laundry basket as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Carrefour Kenya reference • 3 Aug 2026"
+          },
+          {
+                "id": 30,
+                "name": "Bedside Lamps",
+                "category": "Bedroom Essentials",
+                "price": 8000,
+                "description": "Contribute toward our bedside lamps as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Carrefour Kenya reference • 3 Aug 2026"
+          },
+          {
+                "id": 31,
+                "name": "Mattress Protector",
+                "category": "Bedroom Essentials",
+                "price": 2995,
+                "description": "Contribute toward our mattress protector as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Carrefour Kenya reference • 3 Aug 2026"
+          },
+          {
+                "id": 32,
+                "name": "Sofa Set",
+                "category": "Living-Room Items",
+                "price": 90000,
+                "description": "Contribute toward our sofa set as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable market estimate"
+          },
+          {
+                "id": 33,
+                "name": "Coffee Table",
+                "category": "Living-Room Items",
+                "price": 25000,
+                "description": "Contribute toward our coffee table as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable market estimate"
+          },
+          {
+                "id": 34,
+                "name": "Television",
+                "category": "Living-Room Items",
+                "price": 32895,
+                "description": "Contribute toward our television as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Carrefour Kenya reference • 3 Aug 2026"
+          },
+          {
+                "id": 35,
+                "name": "TV Stand",
+                "category": "Living-Room Items",
+                "price": 30000,
+                "description": "Contribute toward our tv stand as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable market estimate"
+          },
+          {
+                "id": 36,
+                "name": "Carpet",
+                "category": "Living-Room Items",
+                "price": 6450,
+                "description": "Contribute toward our carpet as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Carrefour Kenya reference • 3 Aug 2026"
+          },
+          {
+                "id": 37,
+                "name": "Curtains",
+                "category": "Living-Room Items",
+                "price": 8000,
+                "description": "Contribute toward our curtains as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable market estimate"
+          },
+          {
+                "id": 38,
+                "name": "Decorative Cushions",
+                "category": "Living-Room Items",
+                "price": 2200,
+                "description": "Contribute toward our decorative cushions as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Carrefour Kenya reference • 3 Aug 2026"
+          },
+          {
+                "id": 39,
+                "name": "Wall Clock",
+                "category": "Living-Room Items",
+                "price": 560,
+                "description": "Contribute toward our wall clock as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Carrefour Kenya reference • 3 Aug 2026"
+          },
+          {
+                "id": 40,
+                "name": "Floor Lamp",
+                "category": "Living-Room Items",
+                "price": 4000,
+                "description": "Contribute toward our floor lamp as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Carrefour Kenya reference • 3 Aug 2026"
+          },
+          {
+                "id": 41,
+                "name": "Bookshelf",
+                "category": "Living-Room Items",
+                "price": 28000,
+                "description": "Contribute toward our bookshelf as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable market estimate"
+          },
+          {
+                "id": 42,
+                "name": "Sound System",
+                "category": "Living-Room Items",
+                "price": 35000,
+                "description": "Contribute toward our sound system as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable market estimate"
+          },
+          {
+                "id": 43,
+                "name": "Indoor Plants",
+                "category": "Living-Room Items",
+                "price": 8000,
+                "description": "Contribute toward our indoor plants as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable market estimate"
+          },
+          {
+                "id": 44,
+                "name": "Towel Sets",
+                "category": "Bathroom and Cleaning Items",
+                "price": 6000,
+                "description": "Contribute toward our towel sets as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Carrefour Kenya reference • 3 Aug 2026"
+          },
+          {
+                "id": 45,
+                "name": "Bathrobes",
+                "category": "Bathroom and Cleaning Items",
+                "price": 3990,
+                "description": "Contribute toward our bathrobes as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Carrefour Kenya reference • 3 Aug 2026"
+          },
+          {
+                "id": 46,
+                "name": "Shower Curtains",
+                "category": "Bathroom and Cleaning Items",
+                "price": 685,
+                "description": "Contribute toward our shower curtains as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Carrefour Kenya reference • 3 Aug 2026"
+          },
+          {
+                "id": 47,
+                "name": "Bathroom Mats",
+                "category": "Bathroom and Cleaning Items",
+                "price": 2540,
+                "description": "Contribute toward our bathroom mats as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Carrefour Kenya reference • 3 Aug 2026"
+          },
+          {
+                "id": 48,
+                "name": "Iron Box",
+                "category": "Bathroom and Cleaning Items",
+                "price": 2745,
+                "description": "Contribute toward our iron box as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Carrefour Kenya reference • 3 Aug 2026"
+          },
+          {
+                "id": 49,
+                "name": "Ironing Board",
+                "category": "Bathroom and Cleaning Items",
+                "price": 6000,
+                "description": "Contribute toward our ironing board as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable market estimate"
+          },
+          {
+                "id": 50,
+                "name": "Vacuum Cleaner",
+                "category": "Bathroom and Cleaning Items",
+                "price": 14295,
+                "description": "Contribute toward our vacuum cleaner as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Carrefour Kenya reference • 3 Aug 2026"
+          },
+          {
+                "id": 51,
+                "name": "Washing Machine",
+                "category": "Bathroom and Cleaning Items",
+                "price": 38995,
+                "description": "Contribute toward our washing machine as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Carrefour Kenya reference • 3 Aug 2026"
+          },
+          {
+                "id": 52,
+                "name": "Cleaning Supplies",
+                "category": "Bathroom and Cleaning Items",
+                "price": 5000,
+                "description": "Contribute toward our cleaning supplies as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable market estimate"
+          },
+          {
+                "id": 53,
+                "name": "Mop and Bucket",
+                "category": "Bathroom and Cleaning Items",
+                "price": 789,
+                "description": "Contribute toward our mop and bucket as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Carrefour Kenya reference • 3 Aug 2026"
+          },
+          {
+                "id": 54,
+                "name": "Storage Baskets",
+                "category": "Bathroom and Cleaning Items",
+                "price": 2270,
+                "description": "Contribute toward our storage baskets as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Carrefour Kenya reference • 3 Aug 2026"
+          },
+          {
+                "id": 55,
+                "name": "Refrigerator",
+                "category": "Home Appliances",
+                "price": 59995,
+                "description": "Contribute toward our refrigerator as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Carrefour Kenya reference • 3 Aug 2026"
+          },
+          {
+                "id": 56,
+                "name": "Washing Machine",
+                "category": "Home Appliances",
+                "price": 38995,
+                "description": "Contribute toward our washing machine as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Carrefour Kenya reference • 3 Aug 2026"
+          },
+          {
+                "id": 57,
+                "name": "Television",
+                "category": "Home Appliances",
+                "price": 32895,
+                "description": "Contribute toward our television as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Carrefour Kenya reference • 3 Aug 2026"
+          },
+          {
+                "id": 58,
+                "name": "Microwave",
+                "category": "Home Appliances",
+                "price": 13995,
+                "description": "Contribute toward our microwave as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Carrefour Kenya reference • 3 Aug 2026"
+          },
+          {
+                "id": 59,
+                "name": "Cooker",
+                "category": "Home Appliances",
+                "price": 39995,
+                "description": "Contribute toward our cooker as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Carrefour Kenya reference • 3 Aug 2026"
+          },
+          {
+                "id": 60,
+                "name": "Water Dispenser",
+                "category": "Home Appliances",
+                "price": 20995,
+                "description": "Contribute toward our water dispenser as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Carrefour Kenya reference • 3 Aug 2026"
+          },
+          {
+                "id": 61,
+                "name": "Vacuum Cleaner",
+                "category": "Home Appliances",
+                "price": 14295,
+                "description": "Contribute toward our vacuum cleaner as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Carrefour Kenya reference • 3 Aug 2026"
+          },
+          {
+                "id": 62,
+                "name": "Fan",
+                "category": "Home Appliances",
+                "price": 4567,
+                "description": "Contribute toward our fan as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Carrefour Kenya reference • 3 Aug 2026"
+          },
+          {
+                "id": 63,
+                "name": "Heater",
+                "category": "Home Appliances",
+                "price": 6995,
+                "description": "Contribute toward our heater as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Carrefour Kenya reference • 3 Aug 2026"
+          },
+          {
+                "id": 64,
+                "name": "Generator or Power Backup",
+                "category": "Home Appliances",
+                "price": 95000,
+                "description": "Contribute toward our generator or power backup as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable market estimate"
+          },
+          {
+                "id": 65,
+                "name": "Solar Lighting System",
+                "category": "Home Appliances",
+                "price": 45000,
+                "description": "Contribute toward our solar lighting system as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable market estimate"
+          },
+          {
+                "id": 66,
+                "name": "Dining Table",
+                "category": "Furniture",
+                "price": 48000,
+                "description": "Contribute toward our dining table as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable market estimate"
+          },
+          {
+                "id": 67,
+                "name": "Dining Chairs",
+                "category": "Furniture",
+                "price": 30000,
+                "description": "Contribute toward our dining chairs as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable market estimate"
+          },
+          {
+                "id": 68,
+                "name": "Sofa Set",
+                "category": "Furniture",
+                "price": 90000,
+                "description": "Contribute toward our sofa set as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable market estimate"
+          },
+          {
+                "id": 69,
+                "name": "Bed",
+                "category": "Furniture",
+                "price": 60000,
+                "description": "Contribute toward our bed as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable market estimate"
+          },
+          {
+                "id": 70,
+                "name": "Mattress",
+                "category": "Furniture",
+                "price": 11270,
+                "description": "Contribute toward our mattress as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Carrefour Kenya reference • 3 Aug 2026"
+          },
+          {
+                "id": 71,
+                "name": "Wardrobe",
+                "category": "Furniture",
+                "price": 45000,
+                "description": "Contribute toward our wardrobe as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable market estimate"
+          },
+          {
+                "id": 72,
+                "name": "Shoe Rack",
+                "category": "Furniture",
+                "price": 15000,
+                "description": "Contribute toward our shoe rack as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable market estimate"
+          },
+          {
+                "id": 73,
+                "name": "Study Desk",
+                "category": "Furniture",
+                "price": 22000,
+                "description": "Contribute toward our study desk as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable market estimate"
+          },
+          {
+                "id": 74,
+                "name": "Office Chair",
+                "category": "Furniture",
+                "price": 18000,
+                "description": "Contribute toward our office chair as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable market estimate"
+          },
+          {
+                "id": 75,
+                "name": "Outdoor Seats",
+                "category": "Furniture",
+                "price": 45000,
+                "description": "Contribute toward our outdoor seats as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable market estimate"
+          },
+          {
+                "id": 76,
+                "name": "Flights",
+                "category": "Honeymoon Gifts",
+                "price": 120000,
+                "description": "Contribute toward our flights as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable contribution estimate"
+          },
+          {
+                "id": 77,
+                "name": "Hotel Accommodation",
+                "category": "Honeymoon Gifts",
+                "price": 90000,
+                "description": "Contribute toward our hotel accommodation as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable contribution estimate"
+          },
+          {
+                "id": 78,
+                "name": "Airport Transfers",
+                "category": "Honeymoon Gifts",
+                "price": 15000,
+                "description": "Contribute toward our airport transfers as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable contribution estimate"
+          },
+          {
+                "id": 79,
+                "name": "Romantic Dinner",
+                "category": "Honeymoon Gifts",
+                "price": 20000,
+                "description": "Contribute toward our romantic dinner as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable contribution estimate"
+          },
+          {
+                "id": 80,
+                "name": "Safari Experience",
+                "category": "Honeymoon Gifts",
+                "price": 60000,
+                "description": "Contribute toward our safari experience as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable contribution estimate"
+          },
+          {
+                "id": 81,
+                "name": "Couple's Massage",
+                "category": "Honeymoon Gifts",
+                "price": 25000,
+                "description": "Contribute toward our couple's massage as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable contribution estimate"
+          },
+          {
+                "id": 82,
+                "name": "Photography Session",
+                "category": "Honeymoon Gifts",
+                "price": 30000,
+                "description": "Contribute toward our photography session as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable contribution estimate"
+          },
+          {
+                "id": 83,
+                "name": "Excursions",
+                "category": "Honeymoon Gifts",
+                "price": 40000,
+                "description": "Contribute toward our excursions as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable contribution estimate"
+          },
+          {
+                "id": 84,
+                "name": "Travel Insurance",
+                "category": "Honeymoon Gifts",
+                "price": 18000,
+                "description": "Contribute toward our travel insurance as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable contribution estimate"
+          },
+          {
+                "id": 85,
+                "name": "Honeymoon Spending Money",
+                "category": "Honeymoon Gifts",
+                "price": 50000,
+                "description": "Contribute toward our honeymoon spending money as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable contribution estimate"
+          },
+          {
+                "id": 86,
+                "name": "House Deposit",
+                "category": "New-Home Fund",
+                "price": 300000,
+                "description": "Contribute toward our house deposit as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable contribution estimate"
+          },
+          {
+                "id": 87,
+                "name": "Rent",
+                "category": "New-Home Fund",
+                "price": 100000,
+                "description": "Contribute toward our rent as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable contribution estimate"
+          },
+          {
+                "id": 88,
+                "name": "Home Renovations",
+                "category": "New-Home Fund",
+                "price": 150000,
+                "description": "Contribute toward our home renovations as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable contribution estimate"
+          },
+          {
+                "id": 89,
+                "name": "Painting",
+                "category": "New-Home Fund",
+                "price": 60000,
+                "description": "Contribute toward our painting as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable contribution estimate"
+          },
+          {
+                "id": 90,
+                "name": "Furniture Fund",
+                "category": "New-Home Fund",
+                "price": 150000,
+                "description": "Contribute toward our furniture fund as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable contribution estimate"
+          },
+          {
+                "id": 91,
+                "name": "Kitchen Installation",
+                "category": "New-Home Fund",
+                "price": 180000,
+                "description": "Contribute toward our kitchen installation as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable contribution estimate"
+          },
+          {
+                "id": 92,
+                "name": "Moving Expenses",
+                "category": "New-Home Fund",
+                "price": 35000,
+                "description": "Contribute toward our moving expenses as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable contribution estimate"
+          },
+          {
+                "id": 93,
+                "name": "Internet Installation",
+                "category": "New-Home Fund",
+                "price": 12000,
+                "description": "Contribute toward our internet installation as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable contribution estimate"
+          },
+          {
+                "id": 94,
+                "name": "Security System",
+                "category": "New-Home Fund",
+                "price": 80000,
+                "description": "Contribute toward our security system as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable contribution estimate"
+          },
+          {
+                "id": 95,
+                "name": "Electricity and Water Connection",
+                "category": "New-Home Fund",
+                "price": 45000,
+                "description": "Contribute toward our electricity and water connection as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable contribution estimate"
+          },
+          {
+                "id": 96,
+                "name": "Dinner for Two",
+                "category": "Experience Gifts",
+                "price": 15000,
+                "description": "Contribute toward our dinner for two as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable contribution estimate"
+          },
+          {
+                "id": 97,
+                "name": "Weekend Getaway",
+                "category": "Experience Gifts",
+                "price": 50000,
+                "description": "Contribute toward our weekend getaway as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable contribution estimate"
+          },
+          {
+                "id": 98,
+                "name": "Couple's Spa Session",
+                "category": "Experience Gifts",
+                "price": 25000,
+                "description": "Contribute toward our couple's spa session as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable contribution estimate"
+          },
+          {
+                "id": 99,
+                "name": "Movie Date",
+                "category": "Experience Gifts",
+                "price": 5000,
+                "description": "Contribute toward our movie date as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable contribution estimate"
+          },
+          {
+                "id": 100,
+                "name": "Cooking Class",
+                "category": "Experience Gifts",
+                "price": 18000,
+                "description": "Contribute toward our cooking class as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable contribution estimate"
+          },
+          {
+                "id": 101,
+                "name": "Photography Session",
+                "category": "Experience Gifts",
+                "price": 30000,
+                "description": "Contribute toward our photography session as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable contribution estimate"
+          },
+          {
+                "id": 102,
+                "name": "Gym Membership",
+                "category": "Experience Gifts",
+                "price": 40000,
+                "description": "Contribute toward our gym membership as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable contribution estimate"
+          },
+          {
+                "id": 103,
+                "name": "Concert Tickets",
+                "category": "Experience Gifts",
+                "price": 20000,
+                "description": "Contribute toward our concert tickets as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable contribution estimate"
+          },
+          {
+                "id": 104,
+                "name": "Anniversary Trip Contribution",
+                "category": "Experience Gifts",
+                "price": 60000,
+                "description": "Contribute toward our anniversary trip contribution as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable contribution estimate"
+          },
+          {
+                "id": 105,
+                "name": "Matching Watches",
+                "category": "Personal Gifts",
+                "price": 35000,
+                "description": "Contribute toward our matching watches as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable contribution estimate"
+          },
+          {
+                "id": 106,
+                "name": "Perfumes",
+                "category": "Personal Gifts",
+                "price": 22000,
+                "description": "Contribute toward our perfumes as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable contribution estimate"
+          },
+          {
+                "id": 107,
+                "name": "His-and-Hers Bathrobes",
+                "category": "Personal Gifts",
+                "price": 3990,
+                "description": "Contribute toward our his-and-hers bathrobes as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Carrefour Kenya reference • 3 Aug 2026"
+          },
+          {
+                "id": 108,
+                "name": "Luggage Set",
+                "category": "Personal Gifts",
+                "price": 30000,
+                "description": "Contribute toward our luggage set as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable contribution estimate"
+          },
+          {
+                "id": 109,
+                "name": "Personalized Photo Album",
+                "category": "Personal Gifts",
+                "price": 12000,
+                "description": "Contribute toward our personalized photo album as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable contribution estimate"
+          },
+          {
+                "id": 110,
+                "name": "Customized Wedding Portrait",
+                "category": "Personal Gifts",
+                "price": 25000,
+                "description": "Contribute toward our customized wedding portrait as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable contribution estimate"
+          },
+          {
+                "id": 111,
+                "name": "Couple's Bible",
+                "category": "Personal Gifts",
+                "price": 8000,
+                "description": "Contribute toward our couple's bible as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable contribution estimate"
+          },
+          {
+                "id": 112,
+                "name": "Jewellery",
+                "category": "Personal Gifts",
+                "price": 50000,
+                "description": "Contribute toward our jewellery as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable contribution estimate"
+          },
+          {
+                "id": 113,
+                "name": "Matching Travel Bags",
+                "category": "Personal Gifts",
+                "price": 28000,
+                "description": "Contribute toward our matching travel bags as we begin our new life together.",
+                "image": "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=900&q=80",
+                "priceBasis": "Editable contribution estimate"
+          }
+    ];
+
+    const GIFTS = BASE_GIFTS;
+
+    /*
+      ============================================================
+      APPLICATION LOGIC
+      You normally do not need to edit below this line.
+      ============================================================
+    */
+
+    const STORAGE_KEY = "vinceentGraceCreativeRegistryFreshV5";
+
+    let registryData = loadRegistryData();
+    let activeGift = null;
+
+    const giftGrid = document.getElementById("giftGrid");
+    const searchInput = document.getElementById("searchInput");
+    const categoryFilter = document.getElementById("categoryFilter");
+    const statusFilter = document.getElementById("statusFilter");
+    const giftModal = document.getElementById("giftModal");
+    const giftForm = document.getElementById("giftForm");
+    const cashGiftForm = document.getElementById("cashGiftForm");
+    const toast = document.getElementById("toast");
+
+    function emptyRegistryData() {
+      return {
+        contributions: [],
+        reservations: [],
+        cashGifts: []
+      };
+    }
+
+    function loadRegistryData() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+
+        if (!saved) return emptyRegistryData();
+
+        return {
+          contributions: Array.isArray(saved.contributions) ? saved.contributions : [],
+          reservations: Array.isArray(saved.reservations) ? saved.reservations : [],
+          cashGifts: Array.isArray(saved.cashGifts) ? saved.cashGifts : []
+        };
+      } catch (error) {
+        console.error("Unable to read saved registry data:", error);
+        return emptyRegistryData();
+      }
+    }
+
+    function saveRegistryData() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(registryData));
+    }
+
+    function formatMoney(amount) {
+      return `${SITE_CONFIG.currency} ${Number(amount).toLocaleString()}`;
+    }
+
+    function getGiftContributed(giftId) {
+      return registryData.contributions
+        .filter(item => item.giftId === giftId)
+        .reduce((total, item) => total + Number(item.amount), 0);
+    }
+
+    function getGiftStatus(gift) {
+      const contributed = getGiftContributed(gift.id);
+
+      if (contributed >= gift.price) return "complete";
+      if (contributed > 0) return "partial";
+      return "available";
+    }
+
+    function populateSiteContent() {
+      document.title = `${SITE_CONFIG.coupleName} Wedding Registry`;
+      document.getElementById("navCoupleName").textContent = SITE_CONFIG.coupleName;
+      document.getElementById("heroCoupleName").textContent = SITE_CONFIG.coupleName;
+      document.getElementById("heroMessage").textContent = SITE_CONFIG.heroMessage;
+      document.getElementById("storyText").textContent = SITE_CONFIG.story;
+      document.getElementById("weddingDetails").textContent = SITE_CONFIG.weddingDetails;
+      document.getElementById("paymentDetails").innerHTML = SITE_CONFIG.paymentDetails;
+      document.getElementById("footerText").textContent =
+        `With love, ${SITE_CONFIG.coupleName} • Thank you for celebrating with us.`;
+    }
+
+
+    function renderCategoryOverview() {
+      const overview = document.getElementById("categoryOverview");
+      const grouped = GIFTS.reduce((result, gift) => {
+        result[gift.category] = (result[gift.category] || 0) + 1;
+        return result;
+      }, {});
+
+      overview.innerHTML = Object.entries(grouped)
+        .map(([category, count]) => `
+          <button type="button" onclick="selectCategory('${category.replaceAll("'", "\\'")}')">
+            <strong>${category}</strong>
+            <span>${count} gift option${count === 1 ? "" : "s"}</span>
+          </button>
+        `)
+        .join("");
+    }
+
+    window.selectCategory = function(category) {
+      categoryFilter.value = category;
+      renderGifts();
+      document.getElementById("registry").scrollIntoView({ behavior: "smooth" });
+    };
+
+    function populateCategories() {
+      const categories = [...new Set(GIFTS.map(gift => gift.category))].sort();
+
+      categories.forEach(category => {
+        const option = document.createElement("option");
+        option.value = category;
+        option.textContent = category;
+        categoryFilter.appendChild(option);
+      });
+    }
+
+    function renderGifts() {
+      const term = searchInput.value.trim().toLowerCase();
+      const selectedCategory = categoryFilter.value;
+      const selectedStatus = statusFilter.value;
+
+      const filteredGifts = GIFTS.filter(gift => {
+        const matchesSearch =
+          gift.name.toLowerCase().includes(term) ||
+          gift.description.toLowerCase().includes(term) ||
+          gift.category.toLowerCase().includes(term);
+
+        const matchesCategory =
+          selectedCategory === "all" || gift.category === selectedCategory;
+
+        const matchesStatus =
+          selectedStatus === "all" || getGiftStatus(gift) === selectedStatus;
+
+        return matchesSearch && matchesCategory && matchesStatus;
+      });
+
+      if (!filteredGifts.length) {
+        giftGrid.innerHTML = `<div class="empty-state">No gifts match your current search.</div>`;
+        updateDashboard();
+        return;
+      }
+
+      giftGrid.innerHTML = filteredGifts.map(gift => {
+        const contributed = getGiftContributed(gift.id);
+        const safeContributed = Math.min(contributed, gift.price);
+        const remaining = Math.max(gift.price - contributed, 0);
+        const percentage = Math.min((contributed / gift.price) * 100, 100);
+        const status = getGiftStatus(gift);
+
+        const statusLabel = {
+          available: "Available",
+          partial: "Partly Funded",
+          complete: "Fully Funded"
+        }[status];
+
+        return `
+          <article class="gift-card">
+            <img src="${gift.image}" alt="${gift.name}" loading="lazy"
+              onerror="this.src='https://placehold.co/900x600?text=Gift+Image';" />
+
+            <div class="gift-body">
+              <div class="gift-topline">
+                <div>
+                  <h3>${gift.name}</h3>
+                  <span class="category">${gift.category}</span>
+                  <span class="price-basis">${gift.priceBasis || "Editable estimate"}</span>
+                </div>
+                <span class="status ${status === "complete" ? "complete" : ""}">
+                  ${statusLabel}
+                </span>
+              </div>
+
+              <p class="gift-description">${gift.description}</p>
+
+              <div class="price-row">
+                <span>Gift value</span>
+                <strong>${formatMoney(gift.price)}</strong>
+              </div>
+
+              <div class="progress">
+                <span style="width:${percentage}%"></span>
+              </div>
+
+              <div class="progress-text">
+                ${formatMoney(safeContributed)} pledged • ${formatMoney(remaining)} remaining
+              </div>
+
+              <div class="gift-actions">
+                ${
+                  status !== "complete"
+                    ? `
+                      <button class="btn btn-primary btn-small"
+                        onclick="openGiftModal(${gift.id}, 'full')">
+                        Gift Full Amount
+                      </button>
+
+                      <button class="btn btn-outline btn-small"
+                        onclick="openGiftModal(${gift.id}, 'contribute')">
+                        Contribute
+                      </button>
+
+                      <button class="btn btn-outline btn-small"
+                        onclick="openGiftModal(${gift.id}, 'reserve')">
+                        Reserve
+                      </button>
+                    `
+                    : `
+                      <button class="btn btn-outline btn-small" disabled>
+                        Thank You — Gift Completed
+                      </button>
+                    `
+                }
+              </div>
+            </div>
+          </article>
+        `;
+      }).join("");
+
+      updateDashboard();
+    }
+
+    window.openGiftModal = function(giftId, action) {
+      const gift = GIFTS.find(item => item.id === giftId);
+      if (!gift) return;
+
+      activeGift = gift;
+      const contributed = getGiftContributed(gift.id);
+      const remaining = Math.max(gift.price - contributed, 0);
+
+      document.getElementById("selectedGiftId").value = gift.id;
+      document.getElementById("giftAction").value = action;
+      document.getElementById("modalTitle").textContent = gift.name;
+      document.getElementById("modalRemaining").textContent =
+        `${formatMoney(remaining)} remaining`;
+      document.getElementById("guestName").value = "";
+      document.getElementById("guestMessage").value = "";
+      document.getElementById("giftAnonymous").checked = false;
+
+      const amountGroup = document.getElementById("amountGroup");
+      const amountInput = document.getElementById("giftAmount");
+      const submitButton = document.getElementById("submitGiftButton");
+
+      if (action === "reserve") {
+        amountGroup.style.display = "none";
+        amountInput.required = false;
+        amountInput.value = "";
+        submitButton.textContent = "Reserve This Gift";
+      } else {
+        amountGroup.style.display = "block";
+        amountInput.required = true;
+        amountInput.max = remaining;
+
+        if (action === "full") {
+          amountInput.value = remaining;
+          amountInput.readOnly = true;
+          submitButton.textContent = "Save Full Gift";
+        } else {
+          amountInput.value = "";
+          amountInput.readOnly = false;
+          submitButton.textContent = "Save Contribution";
+        }
+      }
+
+      giftModal.classList.add("open");
+    };
+
+    function closeGiftModal() {
+      giftModal.classList.remove("open");
+      activeGift = null;
+    }
+
+    giftForm.addEventListener("submit", event => {
+      event.preventDefault();
+
+      if (!activeGift) return;
+
+      const action = document.getElementById("giftAction").value;
+      const name = document.getElementById("guestName").value.trim();
+      const message = document.getElementById("guestMessage").value.trim();
+      const anonymous = document.getElementById("giftAnonymous").checked;
+
+      if (!name) {
+        showToast("Please enter your name.");
+        return;
+      }
+
+      if (action === "reserve") {
+        registryData.reservations.push({
+          id: crypto.randomUUID ? crypto.randomUUID() : String(Date.now()),
+          giftId: activeGift.id,
+          guestName: name,
+          displayName: anonymous ? "Anonymous Guest" : name,
+          message,
+          anonymous,
+          createdAt: new Date().toISOString()
+        });
+
+        showToast(`${activeGift.name} has been reserved.`);
+      } else {
+        const amount = Number(document.getElementById("giftAmount").value);
+        const remaining = Math.max(activeGift.price - getGiftContributed(activeGift.id), 0);
+
+        if (!amount || amount <= 0) {
+          showToast("Enter a valid contribution amount.");
+          return;
+        }
+
+        if (amount > remaining) {
+          showToast(`The maximum remaining amount is ${formatMoney(remaining)}.`);
+          return;
+        }
+
+        registryData.contributions.push({
+          id: crypto.randomUUID ? crypto.randomUUID() : String(Date.now()),
+          giftId: activeGift.id,
+          guestName: name,
+          displayName: anonymous ? "Anonymous Guest" : name,
+          amount,
+          message,
+          anonymous,
+          createdAt: new Date().toISOString()
+        });
+
+        showToast("Thank you. Your contribution has been recorded.");
+      }
+
+      saveRegistryData();
+      closeGiftModal();
+      renderGifts();
+    });
+
+    cashGiftForm.addEventListener("submit", event => {
+      event.preventDefault();
+
+      const name = document.getElementById("cashGuestName").value.trim();
+      const amount = Number(document.getElementById("cashAmount").value);
+      const purpose = document.getElementById("cashPurpose").value;
+      const message = document.getElementById("cashMessage").value.trim();
+      const anonymous = document.getElementById("cashAnonymous").checked;
+
+      if (!name || !amount || amount <= 0) {
+        showToast("Please enter a name and valid amount.");
+        return;
+      }
+
+      registryData.cashGifts.push({
+        id: crypto.randomUUID ? crypto.randomUUID() : String(Date.now()),
+        guestName: name,
+        displayName: anonymous ? "Anonymous Guest" : name,
+        amount,
+        purpose,
+        message,
+        anonymous,
+        createdAt: new Date().toISOString()
+      });
+
+      saveRegistryData();
+      cashGiftForm.reset();
+      updateDashboard();
+      showToast("Thank you. The cash gift has been recorded.");
+    });
+
+    function updateDashboard() {
+      const registryValue = GIFTS.reduce((total, gift) => total + gift.price, 0);
+
+      const itemPledges = registryData.contributions.reduce(
+        (total, item) => total + Number(item.amount),
+        0
+      );
+
+      const cashPledges = registryData.cashGifts.reduce(
+        (total, item) => total + Number(item.amount),
+        0
+      );
+
+      const totalPledged = itemPledges + cashPledges;
+      const completed = GIFTS.filter(gift => getGiftStatus(gift) === "complete").length;
+      const progressPercentage =
+        registryValue > 0 ? Math.min((itemPledges / registryValue) * 100, 100) : 0;
+
+      document.getElementById("summaryGiftCount").textContent = GIFTS.length;
+      document.getElementById("summaryRegistryValue").textContent = formatMoney(registryValue);
+      document.getElementById("summaryPledged").textContent = formatMoney(totalPledged);
+      document.getElementById("summaryCompleted").textContent = completed;
+      document.getElementById("overallProgressText").textContent =
+        `${Math.round(progressPercentage)}% complete`;
+      document.getElementById("overallProgressBar").style.width =
+        `${progressPercentage}%`;
+
+      const journeyMessage = document.getElementById("journeyMessage");
+
+      if (progressPercentage === 0) {
+        journeyMessage.textContent =
+          "Our wishlist is ready for your thoughtful blessings.";
+      } else if (progressPercentage < 50) {
+        journeyMessage.textContent =
+          "Our new beginning is taking shape, one thoughtful gift at a time.";
+      } else if (progressPercentage < 100) {
+        journeyMessage.textContent =
+          "We are more than halfway there. Your kindness means so much to us.";
+      } else {
+        journeyMessage.textContent =
+          "Our registry is complete. Thank you for filling our new chapter with love.";
+      }
+    }
+
+    function startCountdown() {
+      const weddingTime = new Date(SITE_CONFIG.weddingDate).getTime();
+
+      function update() {
+        const distance = weddingTime - Date.now();
+
+        if (distance <= 0) {
+          document.getElementById("days").textContent = "0";
+          document.getElementById("hours").textContent = "0";
+          document.getElementById("minutes").textContent = "0";
+          document.getElementById("seconds").textContent = "0";
+          return;
+        }
+
+        document.getElementById("days").textContent =
+          Math.floor(distance / (1000 * 60 * 60 * 24));
+
+        document.getElementById("hours").textContent =
+          Math.floor((distance / (1000 * 60 * 60)) % 24);
+
+        document.getElementById("minutes").textContent =
+          Math.floor((distance / (1000 * 60)) % 60);
+
+        document.getElementById("seconds").textContent =
+          Math.floor((distance / 1000) % 60);
+      }
+
+      update();
+      setInterval(update, 1000);
+    }
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add("show");
+
+      window.clearTimeout(showToast.timer);
+      showToast.timer = window.setTimeout(() => {
+        toast.classList.remove("show");
+      }, 3200);
+    }
+
+    searchInput.addEventListener("input", renderGifts);
+    categoryFilter.addEventListener("change", renderGifts);
+    statusFilter.addEventListener("change", renderGifts);
+    document.getElementById("closeModal").addEventListener("click", closeGiftModal);
+
+    giftModal.addEventListener("click", event => {
+      if (event.target === giftModal) closeGiftModal();
+    });
+
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape") closeGiftModal();
+    });
+
+    populateSiteContent();
+    populateCategories();
+    renderCategoryOverview();
+    renderGifts();
+    startCountdown();
+  </script>
+</body>
+</html>
